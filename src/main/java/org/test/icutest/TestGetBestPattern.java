@@ -25,14 +25,13 @@ import com.ibm.icu.util.ULocale;
 public class TestGetBestPattern {
 
     public static void main(String[] args) {
-        String[] locale_names = {"ca", "fr", "de", "ja"};
+        ULocale[] locales = ULocale.getAvailableLocales();
         Calendar cal = Calendar.getInstance();
-        for (String locale_name : locale_names) {
-            ULocale locale = new ULocale(locale_name);
+        for (ULocale locale : locales) {
             String pattern = DateTimePatternGenerator.getInstance(locale).getBestPattern("EEEEMMMd");
             SimpleDateFormat formatter = new SimpleDateFormat(pattern, locale);
             String formatted = formatter.format(cal);
-            System.out.println("[" + locale_name + "] [" + pattern + "] [" + formatted + "]");
+            System.out.printf("%-15s %-20s %s\n", locale, pattern, formatted);
         }
     }
 }
